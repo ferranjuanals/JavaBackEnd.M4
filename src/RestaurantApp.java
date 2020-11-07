@@ -82,6 +82,44 @@ public class RestaurantApp {
 		
 		System.out.println("----------------------------------\n");
 		
+		// Crear ArrayList per guardar els productes que no existeixen
+		ArrayList<String> rem = new ArrayList<String>();
+				
+		// Comparar la llista de la comanda amb Array del menú
+		for(String c:comanda) {
+			if(Arrays.asList(menu).contains(c)) {				
+				// Sumar el preu del plat al total
+				preuTotal += menu_preu.get(c);					
+			}else {
+				// Guardar a la llista de productes a eliminar
+				rem.add(c);
+			}
+		}
+		
+		// En cas de que s'hagin introduït productes que no existeixen
+		if(!rem.isEmpty()) {
+			// Eliminar els productes de la comanda
+			for(String r:rem) {
+				comanda.remove(comanda.indexOf(r));
+			}
+			// Mostrar els plats que no existeixen
+			System.out.println("Ho sentim, els següents plats no es troben a la carta:\n- " + 
+								String.join("\n- ", rem) + "\n");
+		}
+				
+		// En cas de que hi hagi algun producte a la comanda
+		if(!comanda.isEmpty()) {
+			// Mostrar els plats de la comanda
+			System.out.println("Comanda final:\n- " + String.join("\n- ", comanda));
+			// Mostrar el preu total de la comanda
+			System.out.printf("\nEl preu total de la seva comanda és: %4.2f €\n", preuTotal);
+			System.out.println("Bon profit");
+		}else {
+			// Si no hi ha cap producte mostrar aquest missatge
+			System.out.println("No s'ha realitzat cap comanda, intenta-ho de nou");
+		}
+
+		
 	}
 
 }
